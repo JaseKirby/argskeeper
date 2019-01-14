@@ -1,0 +1,27 @@
+---
+name: exmapleArgsKLib
+title: Example Argsk Library
+desc: This is an exmple argk lib.
+groups:
+  - name: docker
+    desc: docker commands
+    programs:
+    - name: docker
+      commands:
+      - name: runNginx
+        exec: run nginx
+        tags: ["docker", "containers"]
+      - name: runAlpCmd
+        exec: run alpine ${cmd}
+        args:
+        - name: cmd
+          desc: the command you want to run in the alpine contianer
+          default: echo hello world
+  - name: linux
+    desc: linux commands
+    commands:
+    - name: shutdownNow
+      exec: /sbin/shutdown -h now
+  - name: windows
+    desc: windows commands
+    

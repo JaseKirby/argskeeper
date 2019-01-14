@@ -1,0 +1,52 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Electron: Main",
+      "type": "node",
+      "request": "launch",
+      "protocol": "inspector",
+      "sourceMaps": true,
+      "program": "${workspaceFolder}/src/main/main.ts",
+      "outFiles": ["${workspaceFolder}/dist/main/**/*.js"],
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+      "windows": {
+        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+      },
+      "runtimeArgs": [
+        "dist/main/main.js",
+        "--remote-debugging-port=9223",
+      ],
+      "preLaunchTask": "build"
+    },
+    {
+      "name": "Electron: Renderer",
+      "type": "chrome",
+      "request": "attach",
+      "port": 9223,
+      "webRoot": "${workspaceFolder}/dist/renderer",
+      "sourceMaps": true,
+      "timeout": 30000
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Mocha Tests",
+      "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+      "args": [
+          "--require", "ts-node/register",
+          "-u", "tdd",
+          "--timeout", "999999",
+          "--colors", "--recursive",
+          "${workspaceFolder}/test/**/*.spec.ts"
+      ],
+      "internalConsoleOptions": "openOnSessionStart"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Electron: All",
+      "configurations": ["Electron: Main", "Electron: Renderer"]
+    }
+  ]
+}

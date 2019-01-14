@@ -1,0 +1,36 @@
+{
+  "name": "eltswb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf dist/**",
+    "build-main": "tsc",
+    "build-render": "webpack",
+    "test": "mocha --require ts-node/register test/**/*.ts",
+    "build": "npm run clean && npm run build-main && npm run build-render",
+    "watch": "npm run clean && npm run build-main && concurrently \"webpack --watch\" \"npm run start\" ",
+    "start": "electron dist/main/main.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/js-yaml": "^3.11.4",
+    "@types/mocha": "^5.2.5",
+    "concurrently": "^4.1.0",
+    "electron": "^4.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.3",
+    "ts-loader": "^5.3.3",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.0"
+  },
+  "dependencies": {
+    "@polymer/lit-element": "^0.6.5",
+    "js-yaml": "^3.12.1",
+    "rxjs": "^6.3.3"
+  }
+}
