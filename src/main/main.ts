@@ -1,7 +1,10 @@
 import { app, BrowserWindow, ipcMain, Event } from "electron";
-import * as path from "path";
-import { IConfig, Config } from "./config/config";
+import { IConfig } from "./config/config";
 import { ConfigBuilder } from "./config/configBuilder";
+import * as path from "path";
+import * as fs from "fs";
+import { ArgsKeeperYamlRepo } from "./repos/argsKeeperYamlRepo";
+import { ArgsKeeper, IArgsKeeper } from "../models/argsKeeper";
 
 const config: IConfig = new ConfigBuilder()
     .addEnvironmentVariables()
@@ -43,3 +46,27 @@ app.on("activate", () => {
 });
 
 // main start
+const argsKeeperYamlRepo: ArgsKeeperYamlRepo = new ArgsKeeperYamlRepo(config.filePath);
+
+const dataFileExists: boolean = fs.existsSync(config.filePath);
+if (!dataFileExists) {
+    argsKeeperYamlRepo.put(new ArgsKeeper());
+}
+
+const argsKeeperGetPromise: Promise<IArgsKeeper> = argsKeeperYamlRepo.get();
+
+ipcMain.on("getArgsKeeperData", (event: Event) => {
+    argsKeeperGetPromise.then((argsKeeper) => {
+        event.sender.send("recieveArgsKeeperData", argsKeeper);
+    }).catch((err) => {
+        console.error(err);
+    });
+});
+
+ipcMain.on("putArgsKeeperData", (event: Event, arg: IArgsKeeper) => {
+    argsKeeperYamlRepo.put(arg).then(() => {
+        event.sender.send("writeArgsKeeperDataDone");
+    }).catch((err) => {
+        console.error(err);
+    });
+});
