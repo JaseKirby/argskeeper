@@ -18,7 +18,17 @@ export class MainPageElement extends LitElement {
 
     protected render(): TemplateResult {
         return html`
-            <h1>ArgsKeeper Main Page</h1>
+            <nav class="navbar is-primary">
+                <div class="navbar-brand">
+                    <div class="navbar-item is-size-3">
+                        ArgsKeeper
+                    </div>
+                </div>
+            </nav>
+            </br>
+            <div class="container is-fluid">
+                <h1>ArgsKeeper Main Page</h1>
+            </div>
         `;
     }
 }

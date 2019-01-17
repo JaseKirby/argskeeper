@@ -1,3 +1,4 @@
+import "./styles/style.scss";
 import { ipcRenderer, Event } from "electron";
 import { IArgsKeeper } from "../models/argsKeeper";
 import { IState, State } from "./state/state";
