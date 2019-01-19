@@ -10,6 +10,23 @@ export class ArgsKeeperYamlRepo implements IArgsKeeperRepo {
         this.yamlDataFilePath = yamlDataFilePath;
     }
 
+    init(): Promise<void> {
+        const p: Promise<void> = new Promise<void>((resolve, reject) => {
+            fs.exists(this.yamlDataFilePath, (exists) => {
+                if (!exists) {
+                    this.put(new ArgsKeeper()).then(() => {
+                        resolve();
+                    }).catch((reason) => {
+                        reject(reason);
+                    });
+                } else {
+                    resolve();
+                }
+            });
+        });
+        return p;
+    }
+
     get(): Promise<IArgsKeeper> {
         const p: Promise<IArgsKeeper> = new Promise<IArgsKeeper>((resolve, reject) => {
             fs.readFile(this.yamlDataFilePath, "utf-8", (err, data) => {

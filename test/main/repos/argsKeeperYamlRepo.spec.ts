@@ -9,7 +9,6 @@ import * as fs from "fs";
 import * as assert from "assert";
 import * as os from "os";
 
-
 describe("ArgsKeeperYamlRepo Get", () => {
     const testYamlFilePath: string = path.join(__dirname, "argsk.test.yml");
     let argsKeeperYamlRepo: IArgsKeeperRepo;
@@ -79,5 +78,20 @@ describe("ArgsKeeperYamlRepo Put", () => {
         await argsKeeperYamlRepo.put(argsKeeper);
         const tmpFileExists: boolean = fs.existsSync(testYamlFilePath);
         assert.equal(tmpFileExists, true);
+    });
+});
+
+describe("ArgsKeeperYamlRepo Init", () => {
+    const defaultNewYamlFilePath: string = path.join(os.tmpdir(), "argsk.default.yml");
+    let argsKeeperYamlRepo: IArgsKeeperRepo;
+
+    it("creates default argskeeper yaml file if it does not exist", async () => {
+        argsKeeperYamlRepo = new ArgsKeeperYamlRepo(defaultNewYamlFilePath);
+        await argsKeeperYamlRepo.init();
+        assert(fs.existsSync(defaultNewYamlFilePath));
+    });
+
+    after(() => {
+        fs.unlinkSync(defaultNewYamlFilePath);
     });
 });
