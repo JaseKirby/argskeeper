@@ -1,14 +1,17 @@
 import { html, LitElement, property } from "@polymer/lit-element";
 import { TemplateResult } from "lit-html";
 import { IArgsKeeper } from "../../models/argsKeeper";
-import "./groupForm";
 import { IArgsKeeperGroup } from "../../models/argsKeeperGroup";
+import "./groupForm";
 
 export class DisplayPageElement extends LitElement {
     public static elName: string = "argsk-display";
 
     @property({type: Object})
     public argsKeeper: IArgsKeeper;
+
+    @property({type: Object})
+    public onArgsKeeperChange: (newArgsKeeper: IArgsKeeper) => void;
 
     private showGroupForm: boolean = false;
 
@@ -27,7 +30,9 @@ export class DisplayPageElement extends LitElement {
     }
 
     private handleAddGroup(newGroup: IArgsKeeperGroup): void {
-        console.log(newGroup);
+        this.argsKeeper.groups.push(newGroup);
+        this.onArgsKeeperChange(this.argsKeeper);
+        this.showGroupForm = false;
     }
 
     protected render(): TemplateResult {
@@ -40,17 +45,20 @@ export class DisplayPageElement extends LitElement {
             <div class="field">
                 <label class="label">SEARCH</label>
                 <div class="control">
-                    <input class="input" type="text" placeholder="group.ProgramOrCommand.Command">
+                    <input class="input" type="text" placeholder="group.programOrCommand.command">
                 </div>
             </div>
+
+            <br>
 
             <h3 class="title is-3">
                 GROUPS
                 <a class="button is-success" @click=${this.handleAddGroupClick}>+</a>
             </h3>
             ${this.showGroupForm?
-                html`<argsk-group-form .onAddGroup=${this.handleAddGroup}></argsk-group-form>`:html``
+                html`<argsk-group-form .onAddGroup=${this.handleAddGroup.bind(this)}></argsk-group-form>`:html``
             }
+            <br>
             ${this.argsKeeper.groups.map((val, i) =>
                 html`<div class="box"><h3>${val.name}</h3></div>`
             )}

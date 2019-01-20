@@ -8,13 +8,10 @@ export class GroupFormElement extends LitElement {
     @property({type: Object})
     public onAddGroup: (newGroup: IArgsKeeperGroup) => void;
 
-    private group: IArgsKeeperGroup;
+    private group: IArgsKeeperGroup = {name: "", desc: ""};
 
     constructor() {
         super();
-        this.group = new ArgsKeeperGroup();
-        this.group.name = "";
-        this.group.desc = "";
     }
 
     // implement this method and return this to remove shadow dom and use global style

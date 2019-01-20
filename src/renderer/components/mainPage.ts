@@ -10,8 +10,14 @@ export class MainPageElement extends LitElement {
     @property({type : Boolean})
     public loading: boolean = true;
 
+    @property({type: Boolean})
+    public saving: boolean = false;
+
     @property({type: Object})
     public argsKeeper: IArgsKeeper;
+
+    @property({type: Object})
+    public onArgsKeeperChange: (newArgsKeeper: IArgsKeeper) => void;
 
     constructor() {
         super();
@@ -20,6 +26,10 @@ export class MainPageElement extends LitElement {
     // implement this method and return this to remove shadow dom and use global style
     protected createRenderRoot(): any {
         return this;
+    }
+
+    private handleArgsKeeperChange(newArgsKeeper: IArgsKeeper): void {
+        this.onArgsKeeperChange(newArgsKeeper);
     }
 
     protected render(): TemplateResult {
@@ -35,7 +45,12 @@ export class MainPageElement extends LitElement {
             <div class="container">
             ${this.loading?
                 html`<argsk-loading-spinner></argsk-loading-spinner>`:
-                html`<argsk-display .argsKeeper=${this.argsKeeper}></argsk-display>`
+                html`
+                <argsk-display
+                    .argsKeeper=${this.argsKeeper}
+                    .onArgsKeeperChange=${this.handleArgsKeeperChange.bind(this)}>
+                </argsk-display>
+                `
             }
             </div>
         `;

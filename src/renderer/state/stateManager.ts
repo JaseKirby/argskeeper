@@ -14,6 +14,12 @@ export class StateManager {
     public updateArgsKeeper(argsKeeper: ArgsKeeper): void {
         this.state.argsKeeper = argsKeeper;
         this.state.loading = false;
+        this.state.saving = false;
+        this.subj.next(this.state);
+    }
+
+    public isSaving(): void {
+        this.state.saving = true;
         this.subj.next(this.state);
     }
 }

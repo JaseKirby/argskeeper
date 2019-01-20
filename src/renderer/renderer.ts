@@ -16,6 +16,7 @@ ipcRenderer.on("recieveArgsKeeperData", (event: Event, arg: IArgsKeeper) => {
 ipcRenderer.send("getArgsKeeperData");
 ipcRenderer.on("writeArgsKeeperDataDone", (event: Event) => {
     console.log("wrote new argskeeper file to disk");
+    stateManager.isSaving();
 });
 ipcRenderer.on("recieveErrors", (errMessages: string[], errors: Error[]) => {
     console.error("got errors");
@@ -28,8 +29,14 @@ subj.subscribe({
     next: (x) => {
         mainPageElement.argsKeeper = x.argsKeeper;
         mainPageElement.loading = x.loading;
+        mainPageElement.saving = x.saving;
         mainPageElement.requestUpdate();
     },
     error: (err) => console.error(err)
 });
+mainPageElement.onArgsKeeperChange = (newArgsKeeper: IArgsKeeper) => {
+    stateManager.isSaving();
+    stateManager.updateArgsKeeper(newArgsKeeper);
+    ipcRenderer.send("putArgsKeeperData", newArgsKeeper);
+};
 rootElement.appendChild(mainPageElement);
