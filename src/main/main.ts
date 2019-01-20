@@ -47,17 +47,14 @@ app.on("activate", () => {
 // main start
 const argsKeeperYamlRepo: ArgsKeeperYamlRepo = new ArgsKeeperYamlRepo(config.filePath);
 const argsKeeperInitPromise: Promise<void> = argsKeeperYamlRepo.init();
-const argsKeeperGetPromise: Promise<IArgsKeeper> = argsKeeperInitPromise.catch((err) => {
-    console.error(err);
-}).then(() => {
-    return argsKeeperYamlRepo.get();
-});
 
 ipcMain.on("getArgsKeeperData", (event: Event) => {
-    argsKeeperGetPromise.then((argsKeeper) => {
-        event.sender.send("recieveArgsKeeperData", argsKeeper);
-    }).catch((err) => {
-        console.error(err);
+    argsKeeperInitPromise.then(() => {
+        argsKeeperYamlRepo.get().then((argsKeeper) => {
+            event.sender.send("recieveArgsKeeperData", argsKeeper);
+        }).catch((err) => {
+            console.error(err);
+        });
     });
 });
 
