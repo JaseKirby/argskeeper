@@ -2,9 +2,8 @@ import { app, BrowserWindow, ipcMain, Event } from "electron";
 import { IConfig } from "./config/config";
 import { ConfigBuilder } from "./config/configBuilder";
 import * as path from "path";
-import * as fs from "fs";
 import { ArgsKeeperYamlRepo } from "./repos/argsKeeperYamlRepo";
-import { ArgsKeeper, IArgsKeeper } from "../models/argsKeeper";
+import { IArgsKeeper } from "../models/argsKeeper";
 
 const config: IConfig = new ConfigBuilder()
     .addEnvironmentVariables()
