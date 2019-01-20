@@ -24,5 +24,11 @@ ipcRenderer.on("recieveErrors", (errMessages: string[], errors: Error[]) => {
 const rootElement: HTMLDivElement = document.getElementById("root") as HTMLDivElement;
 
 const mainPageElement: MainPageElement = document.createElement(MainPageElement.elName) as MainPageElement;
-// subscribe to subject
+subj.subscribe({
+    next: (x) => {
+        mainPageElement.loading = x.loading;
+        mainPageElement.requestUpdate();
+    },
+    error: (err) => console.error(err)
+});
 rootElement.appendChild(mainPageElement);
