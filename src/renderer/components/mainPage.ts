@@ -1,12 +1,17 @@
 import { html, LitElement, property } from "@polymer/lit-element";
 import { TemplateResult } from "lit-html";
+import { IArgsKeeper } from "../../models/argsKeeper";
 import "./loadingSpinner";
+import "./displayPage";
 
 export class MainPageElement extends LitElement {
     public static elName: string = "argsk-main";
 
     @property({type : Boolean})
     public loading: boolean = true;
+
+    @property({type: Object})
+    public argsKeeper: IArgsKeeper;
 
     constructor() {
         super();
@@ -30,7 +35,7 @@ export class MainPageElement extends LitElement {
             <div class="container">
             ${this.loading?
                 html`<argsk-loading-spinner></argsk-loading-spinner>`:
-                html`<p>done loading</p>`
+                html`<argsk-display .argsKeeper=${this.argsKeeper}></argsk-display>`
             }
             </div>
         `;

@@ -26,6 +26,7 @@ const rootElement: HTMLDivElement = document.getElementById("root") as HTMLDivEl
 const mainPageElement: MainPageElement = document.createElement(MainPageElement.elName) as MainPageElement;
 subj.subscribe({
     next: (x) => {
+        mainPageElement.argsKeeper = x.argsKeeper;
         mainPageElement.loading = x.loading;
         mainPageElement.requestUpdate();
     },
