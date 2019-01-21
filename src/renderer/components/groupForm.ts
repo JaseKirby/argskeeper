@@ -12,6 +12,7 @@ export class GroupFormElement extends LitElement {
     public onAddGroup: (newGroup: IArgsKeeperGroup) => void;
 
     private group: IArgsKeeperGroup = {name: "", desc: ""};
+    private groupNameValidationMsg: string = "";
 
     constructor() {
         super();
@@ -24,6 +25,12 @@ export class GroupFormElement extends LitElement {
 
     private handleGroupNameChange(e: KeyboardEvent): void {
         const el: HTMLInputElement = e.target as HTMLInputElement;
+        if(el.value.indexOf(" ") >= 0) {
+            el.value = el.value.replace(/\s/g, "");
+            this.groupNameValidationMsg = "No whitespace allowed in group name. Whitespace was trimmed automatically.";
+            this.requestUpdate();
+            return;
+        }
         this.group.name = el.value;
     }
 
@@ -45,6 +52,7 @@ export class GroupFormElement extends LitElement {
                     <div class="control">
                         <input class="input" type="text" @keyup="${this.handleGroupNameChange}"/>
                     </div>
+                    <p class="help is-info">${this.groupNameValidationMsg}</p>
                 </div>
                 <div class="field">
                     <label class="label">Group Description</label>
@@ -63,7 +71,7 @@ export class GroupFormElement extends LitElement {
     }
 
     private determineCreateButtonClass(): string {
-        let baseClass: string = "button is-success";
+        const baseClass: string = "button is-success";
         if(this.saving) {
             return baseClass + " is-loading";
         } else {
