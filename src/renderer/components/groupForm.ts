@@ -1,6 +1,6 @@
 import { html, LitElement, property } from "@polymer/lit-element";
 import { TemplateResult } from "lit-html";
-import { IArgsKeeperGroup, ArgsKeeperGroup } from "../../models/argsKeeperGroup";
+import { IArgsKeeperGroup } from "../../models/argsKeeperGroup";
 
 export class GroupFormElement extends LitElement {
     public static elName: string = "argsk-group-form";
