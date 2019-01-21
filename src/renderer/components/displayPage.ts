@@ -3,6 +3,7 @@ import { TemplateResult } from "lit-html";
 import { IArgsKeeper } from "../../models/argsKeeper";
 import { IArgsKeeperGroup } from "../../models/argsKeeperGroup";
 import "./groupForm";
+import "./group";
 
 export class DisplayPageElement extends LitElement {
     public static elName: string = "argsk-display";
@@ -54,17 +55,22 @@ export class DisplayPageElement extends LitElement {
 
             <br>
 
-            <h3 class="title is-3">
-                GROUPS
-                <a class="button is-success" @click=${this.handleAddGroupClick}>+</a>
-            </h3>
-            ${this.showGroupForm?
-                html`<argsk-group-form ?saving="${this.saving}" .onAddGroup=${this.handleAddGroup.bind(this)}></argsk-group-form>`:html``
-            }
-            <br>
-            ${this.argsKeeper.groups.map((val, i) =>
-                html`<div class="box"><h3>${val.name}</h3></div>`
-            )}
+            <div class="box">
+                <h3 class="title is-3">
+                    GROUPS
+                    <a class="button is-success" @click=${this.handleAddGroupClick}>+</a>
+                </h3>
+                ${this.showGroupForm?
+                    html`<argsk-group-form
+                            ?saving="${this.saving}"
+                            .onAddGroup=${this.handleAddGroup.bind(this)}>
+                        </argsk-group-form>`:html``
+                }
+                <br>
+                ${this.argsKeeper.groups.map((val, i) =>
+                    html`<argsk-group ?saving="${this.saving}" .group=${val}></argsk-group>`
+                )}
+            </div>
         `;
     }
 }
