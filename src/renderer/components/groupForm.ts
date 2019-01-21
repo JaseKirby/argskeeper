@@ -5,6 +5,9 @@ import { IArgsKeeperGroup, ArgsKeeperGroup } from "../../models/argsKeeperGroup"
 export class GroupFormElement extends LitElement {
     public static elName: string = "argsk-group-form";
 
+    @property({type: Boolean})
+    public saving: boolean = false;
+
     @property({type: Object})
     public onAddGroup: (newGroup: IArgsKeeperGroup) => void;
 
@@ -40,22 +43,32 @@ export class GroupFormElement extends LitElement {
                 <div class="field">
                     <label class="label">Group Name</label>
                     <div class="control">
-                        <input class="input" type="text" @keyup=${this.handleGroupNameChange}/>
+                        <input class="input" type="text" @keyup="${this.handleGroupNameChange}"/>
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Group Description</label>
                     <div class="control">
-                        <textarea class="textarea" @keyup=${this.handleGroupDescChange}></textarea>
+                        <textarea class="textarea" @keyup="${this.handleGroupDescChange}"></textarea>
                     </div>
                 </div>
                 <div class="field">
                     <div class="control">
-                        <button class="button is-success" @click=${this.handleCreateGroupClick}>Create</button>
+                        <button class="${this.determineCreateButtonClass()}"
+                            ?disabled="${this.saving}" @click="${this.handleCreateGroupClick}">Create</button>
                     </div>
                 </div>
             </div>
         `;
+    }
+
+    private determineCreateButtonClass(): string {
+        let baseClass: string = "button is-success";
+        if(this.saving) {
+            return baseClass + " is-loading";
+        } else {
+            return baseClass;
+        }
     }
 }
 

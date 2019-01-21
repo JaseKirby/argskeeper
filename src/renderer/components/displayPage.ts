@@ -7,6 +7,9 @@ import "./groupForm";
 export class DisplayPageElement extends LitElement {
     public static elName: string = "argsk-display";
 
+    @property({type: Boolean})
+    public saving: boolean = false;
+
     @property({type: Object})
     public argsKeeper: IArgsKeeper;
 
@@ -56,7 +59,7 @@ export class DisplayPageElement extends LitElement {
                 <a class="button is-success" @click=${this.handleAddGroupClick}>+</a>
             </h3>
             ${this.showGroupForm?
-                html`<argsk-group-form .onAddGroup=${this.handleAddGroup.bind(this)}></argsk-group-form>`:html``
+                html`<argsk-group-form ?saving="${this.saving}" .onAddGroup=${this.handleAddGroup.bind(this)}></argsk-group-form>`:html``
             }
             <br>
             ${this.argsKeeper.groups.map((val, i) =>

@@ -48,7 +48,8 @@ export class MainPageElement extends LitElement {
                 html`
                 <argsk-display
                     .argsKeeper=${this.argsKeeper}
-                    .onArgsKeeperChange=${this.handleArgsKeeperChange.bind(this)}>
+                    .onArgsKeeperChange=${this.handleArgsKeeperChange.bind(this)}
+                    ?saving="${this.saving}">
                 </argsk-display>
                 `
             }
