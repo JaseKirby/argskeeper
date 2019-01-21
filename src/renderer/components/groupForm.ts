@@ -27,7 +27,7 @@ export class GroupFormElement extends LitElement {
         const el: HTMLInputElement = e.target as HTMLInputElement;
         if(el.value.indexOf(" ") >= 0) {
             el.value = el.value.replace(/\s/g, "");
-            this.groupNameValidationMsg = "No whitespace allowed in group name. Whitespace was trimmed automatically.";
+            this.groupNameValidationMsg = "No whitespace allowed in group name. Whitespace was removed automatically.";
             this.requestUpdate();
             return;
         }
