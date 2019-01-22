@@ -25,14 +25,15 @@ export class GroupElement extends LitElement {
         return this;
     }
 
-    private handleGroupBoxClick(): void {
+    private handleGroupBoxClick(e: MouseEvent): void {
         this.showGroupDetails = !this.showGroupDetails;
+        // todo collapse box to just title and description
         console.log(this.showGroupDetails);
     }
 
     private handleGroupRemoveButtonClick(e: MouseEvent): void {
         const el: HTMLLinkElement = e.target as HTMLLinkElement;
-        console.log(`remove group: ${el.id}`);
+        this.onGroupRemove(el.id);
         e.stopPropagation();
     }
 
@@ -54,7 +55,7 @@ export class GroupElement extends LitElement {
                 ${this.group.name}
                 <a id="${this.group.name}" class="button is-danger"
                     class="${this.determineRemoveButtonClass()}"
-                    ?disable="${this.saving}"
+                    ?disabled="${this.saving}"
                     @click="${this.handleGroupRemoveButtonClick}">-</a>
             </h3>
             <h5 class="subtitle is-5">${this.group.desc}</h5>
