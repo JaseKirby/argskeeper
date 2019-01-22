@@ -4,6 +4,7 @@ import { IArgsKeeper } from "../../models/argsKeeper";
 import { IArgsKeeperGroup } from "../../models/argsKeeperGroup";
 import "./groupForm";
 import "./group";
+import { ArgsKeeperEditor } from "../../editors/argsKeeperEditor";
 
 export class DisplayPageElement extends LitElement {
     public static elName: string = "argsk-display";
@@ -34,9 +35,21 @@ export class DisplayPageElement extends LitElement {
     }
 
     private handleAddGroup(newGroup: IArgsKeeperGroup): void {
-        this.argsKeeper.groups.push(newGroup);
+        const editor: ArgsKeeperEditor = new ArgsKeeperEditor(this.argsKeeper);
+        try {
+            editor.addGroup(newGroup);
+            this.onArgsKeeperChange(this.argsKeeper);
+            this.showGroupForm = false;
+        } catch(err) {
+            // todo: send to user error notification well to be implemented in main component
+            console.error(err);
+        }
+    }
+
+    private handleGroupRemove(groupToRemoveName: string): void {
+        const editor: ArgsKeeperEditor = new ArgsKeeperEditor(this.argsKeeper);
+        editor.removeGroupByName(groupToRemoveName);
         this.onArgsKeeperChange(this.argsKeeper);
-        this.showGroupForm = false;
     }
 
     protected render(): TemplateResult {
@@ -68,7 +81,11 @@ export class DisplayPageElement extends LitElement {
                 }
                 <br>
                 ${this.argsKeeper.groups.map((val, i) =>
-                    html`<argsk-group ?saving="${this.saving}" .group=${val}></argsk-group>`
+                    html`<argsk-group
+                            ?saving="${this.saving}"
+                            .group=${val}
+                            .onGroupRemove=${this.handleGroupRemove.bind(this)}>
+                         </argsk-group>`
                 )}
             </div>
         `;
