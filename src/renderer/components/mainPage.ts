@@ -3,6 +3,7 @@ import { TemplateResult } from "lit-html";
 import { IArgsKeeper } from "../../models/argsKeeper";
 import "./loadingSpinner";
 import "./displayPage";
+import "./notifier";
 
 export class MainPageElement extends LitElement {
     public static elName: string = "argsk-main";
@@ -15,6 +16,9 @@ export class MainPageElement extends LitElement {
 
     @property({type: Object})
     public argsKeeper: IArgsKeeper;
+
+    @property({type: Array})
+    public errors: string[];
 
     @property({type: Object})
     public onArgsKeeperChange: (newArgsKeeper: IArgsKeeper) => void;
@@ -54,6 +58,7 @@ export class MainPageElement extends LitElement {
                 `
             }
             </div>
+            <argsk-notifier></argsk-notifier>
         `;
     }
 }
