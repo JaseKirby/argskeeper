@@ -7,6 +7,9 @@ export class NotifierElement extends LitElement {
     @property({type: Array})
     public errors: string[];
 
+    @property({type: Object})
+    public onClearErrors: () => void;
+
     constructor() {
         super();
         this.errors = [];
@@ -18,7 +21,7 @@ export class NotifierElement extends LitElement {
     }
 
     private handleClearAlertsClick(): void {
-        this.errors = [];
+        this.onClearErrors();
     }
 
     protected render(): TemplateResult {

@@ -18,7 +18,7 @@ export class MainPageElement extends LitElement {
     public argsKeeper: IArgsKeeper;
 
     @property({type: Array})
-    public errors: string[];
+    public errors: string[] = [];
 
     @property({type: Object})
     public onArgsKeeperChange: (newArgsKeeper: IArgsKeeper) => void;
@@ -34,6 +34,14 @@ export class MainPageElement extends LitElement {
 
     private handleArgsKeeperChange(newArgsKeeper: IArgsKeeper): void {
         this.onArgsKeeperChange(newArgsKeeper);
+    }
+
+    private handleErrors(errors: string[]): void {
+        this.errors = this.errors.concat(errors);
+    }
+
+    private handleClearErrors(): void {
+        this.errors = [];
     }
 
     protected render(): TemplateResult {
@@ -53,12 +61,16 @@ export class MainPageElement extends LitElement {
                 <argsk-display
                     .argsKeeper=${this.argsKeeper}
                     .onArgsKeeperChange=${this.handleArgsKeeperChange.bind(this)}
-                    ?saving="${this.saving}">
+                    ?saving="${this.saving}"
+                    .onErrors="${this.handleErrors.bind(this)}">
                 </argsk-display>
                 `
             }
             </div>
-            <argsk-notifier></argsk-notifier>
+            <argsk-notifier
+                .errors="${this.errors}"
+                .onClearErrors="${this.handleClearErrors.bind(this)}">
+            </argsk-notifier>
         `;
     }
 }

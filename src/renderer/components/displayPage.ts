@@ -18,6 +18,9 @@ export class DisplayPageElement extends LitElement {
     @property({type: Object})
     public onArgsKeeperChange: (newArgsKeeper: IArgsKeeper) => void;
 
+    @property({type: Object})
+    public onErrors: (errors: string[]) => void;
+
     private showGroupForm: boolean = false;
 
     constructor() {
@@ -41,8 +44,7 @@ export class DisplayPageElement extends LitElement {
             this.onArgsKeeperChange(this.argsKeeper);
             this.showGroupForm = false;
         } catch(err) {
-            // todo: send to user error notification well to be implemented in main component
-            console.error(err);
+            this.onErrors([err]);
         }
     }
 
