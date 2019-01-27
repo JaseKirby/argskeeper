@@ -59,8 +59,8 @@ export class MainPageElement extends LitElement {
                 html`<argsk-loading-spinner></argsk-loading-spinner>`:
                 html`
                 <argsk-display
-                    .argsKeeper=${this.argsKeeper}
-                    .onArgsKeeperChange=${this.handleArgsKeeperChange.bind(this)}
+                    .argsKeeper="${this.argsKeeper}"
+                    .onArgsKeeperChange="${this.handleArgsKeeperChange.bind(this)}"
                     ?saving="${this.saving}"
                     .onErrors="${this.handleErrors.bind(this)}">
                 </argsk-display>

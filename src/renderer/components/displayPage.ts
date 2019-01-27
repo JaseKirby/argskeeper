@@ -73,20 +73,20 @@ export class DisplayPageElement extends LitElement {
             <div class="box">
                 <h3 class="title is-3">
                     GROUPS
-                    <a class="button is-success" @click=${this.handleAddGroupClick}>+</a>
+                    <a class="button is-success" @click="${this.handleAddGroupClick}">+</a>
                 </h3>
                 ${this.showGroupForm?
                     html`<argsk-group-form
                             ?saving="${this.saving}"
-                            .onAddGroup=${this.handleAddGroup.bind(this)}>
+                            .onAddGroup="${this.handleAddGroup.bind(this)}">
                         </argsk-group-form>`:html``
                 }
                 <br>
                 ${this.argsKeeper.groups.map((val, i) =>
                     html`<argsk-group
                             ?saving="${this.saving}"
-                            .group=${val}
-                            .onGroupRemove=${this.handleGroupRemove.bind(this)}>
+                            .group="${val}"
+                            .onGroupRemove="${this.handleGroupRemove.bind(this)}">
                          </argsk-group>`
                 )}
             </div>
