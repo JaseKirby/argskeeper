@@ -1,6 +1,10 @@
 import { IArgsKeeper, ArgsKeeper } from "../../../src/models/argsKeeper";
 import { IArgsKeeperGroup } from "../../../src/models/argsKeeperGroup";
-import { ArgsKeeperEditor, ArgskGroupNameAlreadyExistsError, ArgskWhiteSpaceInNameError } from "../../../src/editors/argsKeeperEditor";
+import {
+    ArgsKeeperEditor,
+    ArgskGroupNameAlreadyExistsError,
+    ArgskWhiteSpaceInNameError,
+    ArgskPeriodInNameError } from "../../../src/editors/argsKeeperEditor";
 import * as assert from "assert";
 
 describe("ArgsKeeperEditor", () => {
@@ -35,6 +39,17 @@ describe("ArgsKeeperEditor", () => {
         const addGroupWithWhiteSpaceName: Function = () => editor.addGroup(windowsSpaceGroup);
 
         assert.throws(addGroupWithWhiteSpaceName, ArgskWhiteSpaceInNameError);
+        assert.equal(argsKeeper.groups.length, 0);
+    });
+
+    it("adding a group with period in the name throws ArgskPeriodInNameError", () => {
+        const argsKeeper: IArgsKeeper = new ArgsKeeper();
+        const windowsPeriodGroup: IArgsKeeperGroup = {name: "windows.bad"};
+        const editor: ArgsKeeperEditor = new ArgsKeeperEditor(argsKeeper);
+
+        const addGroupWithPeriod: Function = () => editor.addGroup(windowsPeriodGroup);
+
+        assert.throws(addGroupWithPeriod, ArgskPeriodInNameError);
         assert.equal(argsKeeper.groups.length, 0);
     });
 

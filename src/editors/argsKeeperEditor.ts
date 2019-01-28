@@ -15,6 +15,14 @@ export class ArgsKeeperEditor {
         }
     }
 
+    private doesNameKeyHavePeriod(nameKey: string): boolean {
+        if(nameKey.indexOf(".") >= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public addGroup(newGroup: IArgsKeeperGroup): void {
         const groupsWithThisNameCount: number = this.argsKeeper.groups.filter(x => x.name === newGroup.name).length;
         if(groupsWithThisNameCount > 0) {
@@ -22,6 +30,9 @@ export class ArgsKeeperEditor {
         }
         if(this.doesNameKeyHaveWhitespace(newGroup.name)) {
             throw new ArgskWhiteSpaceInNameError(newGroup.name);
+        }
+        if(this.doesNameKeyHavePeriod(newGroup.name)) {
+            throw new ArgskPeriodInNameError(newGroup.name);
         }
         this.argsKeeper.groups.push(newGroup);
     }
@@ -42,5 +53,12 @@ export class ArgskWhiteSpaceInNameError extends Error {
     constructor(name: string) {
         super(`Whitespace found in name key '${name}'. No whitespace allowed in name keys.`);
         this.name = "ArgskWhiteSpaceInNameError";
+    }
+}
+
+export class ArgskPeriodInNameError extends Error {
+    constructor(name: string) {
+        super(`Period found in name key '${name}'. Periods are not allowed in name keys.`);
+        this.name = "ArgskPeriodInNameError";
     }
 }
