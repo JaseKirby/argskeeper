@@ -54,7 +54,7 @@ export class MainPageElement extends LitElement {
                 </div>
             </nav>
             </br>
-            <div class="container">
+            <div class="container is-fluid">
             ${this.loading?
                 html`<argsk-loading-spinner></argsk-loading-spinner>`:
                 html`
