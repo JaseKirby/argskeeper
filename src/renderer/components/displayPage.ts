@@ -2,6 +2,7 @@ import { html, LitElement, property } from "@polymer/lit-element";
 import { TemplateResult } from "lit-html";
 import { IArgsKeeper } from "../../models/argsKeeper";
 import { IArgsKeeperGroup } from "../../models/argsKeeperGroup";
+import "./search";
 import "./groupForm";
 import "./group";
 import { ArgsKeeperEditor } from "../../editors/argsKeeperEditor";
@@ -61,12 +62,7 @@ export class DisplayPageElement extends LitElement {
 
             <hr>
 
-            <div class="field">
-                <label class="label">SEARCH</label>
-                <div class="control">
-                    <input class="input" type="text" placeholder="group.programOrCommand.command">
-                </div>
-            </div>
+            <argsk-search></argsk-search>
 
             <br>
 
