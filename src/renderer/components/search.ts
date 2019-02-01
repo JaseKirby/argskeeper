@@ -6,8 +6,9 @@ import { Subject } from "rxjs";
 export class SearchElement extends LitElement {
     public static elName: string = "argsk-search";
 
-    private groupSearchKey: string;
-    private doExecuteGroupSearch: boolean;
+    @property({type: Object})
+    public onGroupSearch: (groupSearchKey: string) => void;
+
     private programOrCommandSearchKey: string;
     private doExecuteProgramOrCommandSearch: boolean;
     private commandSearchKey: string;
@@ -18,12 +19,11 @@ export class SearchElement extends LitElement {
     constructor() {
         super();
         this.searchSubj = new Subject();
-        this.searchSubj.pipe(debounceTime(1200)).subscribe((s) => {
+        this.searchSubj.pipe(debounceTime(1000)).subscribe((s) => {
             const searches: string[] = s.split(".");
             // todo: figure out search or filter in main page
             if(searches.length === 1) {
-                this.groupSearchKey = searches[0];
-                console.log(`group search: ${this.groupSearchKey}`);
+                this.onGroupSearch(searches[0]);
             }
             if(searches.length === 2) {
                 this.programOrCommandSearchKey = searches[1];
