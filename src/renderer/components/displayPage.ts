@@ -25,13 +25,11 @@ export class DisplayPageElement extends LitElement {
 
     private showGroupForm: boolean = false;
     private groupFilter: string;
-    private programOrCommandFilter: string;
     private commandFilter: string;
 
     constructor() {
         super();
         this.handleGroupSearch = this.handleGroupSearch.bind(this);
-        this.handleProgramOrCommandSearch = this.handleProgramOrCommandSearch.bind(this);
         this.handleCommandSearch = this.handleCommandSearch.bind(this);
         this.handleAddGroup = this.handleAddGroup.bind(this);
         this.handleGroupRemove = this.handleGroupRemove.bind(this);
@@ -69,11 +67,6 @@ export class DisplayPageElement extends LitElement {
         this.requestUpdate();
     }
 
-    private handleProgramOrCommandSearch(programOrCommandSearchKey: string): void {
-        this.programOrCommandFilter = programOrCommandSearchKey;
-        this.requestUpdate();
-    }
-
     private handleCommandSearch(commandSearchKey: string): void {
         this.commandFilter = commandSearchKey;
         this.requestUpdate();
@@ -88,7 +81,6 @@ export class DisplayPageElement extends LitElement {
 
             <argsk-search
                 .onGroupSearch=${this.handleGroupSearch}
-                .onProgramOrCommandSearch=${this.handleProgramOrCommandSearch}
                 .onCommandSearch=${this.handleCommandSearch}>
             </argsk-search>
 
@@ -111,7 +103,6 @@ export class DisplayPageElement extends LitElement {
                     .groups=${this.argsKeeper.groups}
                     .onGroupRemove=${this.handleGroupRemove}
                     .groupFilter=${this.groupFilter}
-                    .programOrCommandFilter=${this.programOrCommandFilter}
                     .commandFilter=${this.commandFilter}>
                 </argsk-group-list>
             </div>

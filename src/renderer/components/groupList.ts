@@ -18,9 +18,6 @@ export class GroupListElement extends LitElement {
     @property({type: String})
     public groupFilter: string;
 
-    @property({type: String})
-    public programOrCommandFilter: string;
-
     @property({type: Object})
     public commandFilter: string;
 
@@ -50,7 +47,6 @@ export class GroupListElement extends LitElement {
                     ?saving=${this.saving}
                     .group=${val}
                     .onGroupRemove=${this.handleGroupRemove}
-                    .programOrCommandFilter=${this.programOrCommandFilter}
                     .commandFilter=${this.commandFilter}>
                 </argsk-group>`
             )}

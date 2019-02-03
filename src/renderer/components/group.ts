@@ -12,9 +12,6 @@ export class GroupElement extends LitElement {
     public group: IArgsKeeperGroup;
 
     @property({type: String})
-    public programOrCommandFilter: string;
-
-    @property({type: String})
     public commandFilter: string;
 
     @property({type: Object})
