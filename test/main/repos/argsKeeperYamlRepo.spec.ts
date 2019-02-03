@@ -46,17 +46,11 @@ describe("ArgsKeeperYamlRepo Get", () => {
         assert.equal(windowsGroup.desc, "windows commands");
     });
 
-    it("docker group has docker program", () => {
+    it("docker group has two commands => runNginx, runAlpCmd", () => {
         const dockerGroup: IArgsKeeperGroup = argsKeeper.groups[0];
-        assert.equal(dockerGroup.programs.length, 1);
-    });
-
-    it("docker program has two commands => runNginx, runAlpCmd", () => {
-        const dockerGroup: IArgsKeeperGroup = argsKeeper.groups[0];
-        const dockerProgram: IArgsKeeperProgram = dockerGroup.programs[0];
-        assert.equal(dockerProgram.commands.length, 2);
-        assert.equal(dockerProgram.commands[0].name, "runNginx");
-        assert.equal(dockerProgram.commands[1].name, "runAlpCmd");
+        assert.equal(dockerGroup.commands.length, 2);
+        assert.equal(dockerGroup.commands[0].name, "runNginx");
+        assert.equal(dockerGroup.commands[1].name, "runAlpCmd");
         // todo: more tests expanding down into commands
     });
 
