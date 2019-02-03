@@ -18,6 +18,12 @@ export class GroupListElement extends LitElement {
     @property({type: String})
     public groupFilter: string;
 
+    @property({type: String})
+    public programOrCommandFilter: string;
+
+    @property({type: Object})
+    public commandFilter: string;
+
     constructor() {
         super();
         this.handleGroupRemove = this.handleGroupRemove.bind(this);
@@ -43,7 +49,9 @@ export class GroupListElement extends LitElement {
                 <argsk-group
                     ?saving=${this.saving}
                     .group=${val}
-                    .onGroupRemove=${this.handleGroupRemove}>
+                    .onGroupRemove=${this.handleGroupRemove}
+                    .programOrCommandFilter=${this.programOrCommandFilter}
+                    .commandFilter=${this.commandFilter}>
                 </argsk-group>`
             )}
         `;

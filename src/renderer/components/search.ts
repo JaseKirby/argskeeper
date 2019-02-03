@@ -9,10 +9,11 @@ export class SearchElement extends LitElement {
     @property({type: Object})
     public onGroupSearch: (groupSearchKey: string) => void;
 
-    private programOrCommandSearchKey: string;
-    private doExecuteProgramOrCommandSearch: boolean;
-    private commandSearchKey: string;
-    private doExecuteCommandSearch: boolean;
+    @property({type: Object})
+    public onProgramOrCommandSearch: (programOrCommandSearchKey: string) => void;
+
+    @property({type: Object})
+    public onCommandSearch: (commandSearchKey: string) => void;
 
     private searchSubj: Subject<string>;
 
@@ -26,12 +27,10 @@ export class SearchElement extends LitElement {
                 this.onGroupSearch(searches[0]);
             }
             if(searches.length === 2) {
-                this.programOrCommandSearchKey = searches[1];
-                console.log(`program or command search: ${this.programOrCommandSearchKey}`);
+                this.onProgramOrCommandSearch(searches[1]);
             }
             if(searches.length === 3) {
-                this.commandSearchKey = searches[2];
-                console.log(`command search: ${this.commandSearchKey}`);
+                this.onCommandSearch(searches[2]);
             }
         });
     }
