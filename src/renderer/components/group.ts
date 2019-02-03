@@ -55,8 +55,8 @@ export class GroupElement extends LitElement {
                 ${this.group.name}
                 <a id="${this.group.name}" class="button is-danger"
                     class="${this.determineRemoveButtonClass()}"
-                    ?disabled="${this.saving}"
-                    @click="${this.handleGroupRemoveButtonClick}">-</a>
+                    ?disabled=${this.saving}
+                    @click=${this.handleGroupRemoveButtonClick}>-</a>
             </h3>
             <h5 class="subtitle is-5">${this.group.desc}</h5>
         </div>

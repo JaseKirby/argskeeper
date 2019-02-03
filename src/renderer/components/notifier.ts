@@ -35,8 +35,8 @@ export class NotifierElement extends LitElement {
                 width: 100%;
             }
         </style>
-        <div class="notification is-danger has-text-centered" ?hidden="${this.errors.length === 0}">
-            <button class="delete" @click="${this.handleClearAlertsClick}"></button>
+        <div class="notification is-danger has-text-centered" ?hidden=${this.errors.length === 0}>
+            <button class="delete" @click=${this.handleClearAlertsClick}></button>
             ${this.errors.map((val) =>
                 html`<p>${val}</p>`
             )}
