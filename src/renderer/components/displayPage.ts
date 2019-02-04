@@ -89,7 +89,8 @@ export class DisplayPageElement extends LitElement {
             <div class="box">
                 <h3 class="title is-3">
                     GROUPS
-                    <a class="button is-success" @click=${this.handleAddGroupClick}>+</a>
+                    <a class="button is-success is-small"
+                        @click=${this.handleAddGroupClick}>+</a>
                 </h3>
                 ${this.showGroupForm?
                     html`<argsk-group-form

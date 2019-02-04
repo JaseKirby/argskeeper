@@ -1,6 +1,8 @@
 import { html, LitElement, property } from "@polymer/lit-element";
 import { TemplateResult } from "lit-html";
 import { IArgsKeeperGroup } from "../../models/argsKeeperGroup";
+import "./commandForm";
+import { IArgsKeeperCommand } from "../../models/argsKeeperCommand";
 
 export class GroupElement extends LitElement {
     public static elName: string = "argsk-group";
@@ -17,10 +19,14 @@ export class GroupElement extends LitElement {
     @property({type: Object})
     public onGroupRemove: (groupName: string) => void;
 
-    private showGroupDetails: boolean;
+    @property({type: Boolean})
+    public showGroupDetails: boolean;
+
+    private showNewCommandForm: boolean;
 
     constructor() {
         super();
+        this.handleAddCommand = this.handleAddCommand.bind(this);
     }
 
     // implement this method and return this to remove shadow dom and use global style
@@ -30,14 +36,23 @@ export class GroupElement extends LitElement {
 
     private handleGroupBoxClick(e: MouseEvent): void {
         this.showGroupDetails = !this.showGroupDetails;
-        // todo collapse box to just title and description
-        console.log(this.showGroupDetails);
+        this.requestUpdate();
     }
 
     private handleGroupRemoveButtonClick(e: MouseEvent): void {
         const el: HTMLLinkElement = e.target as HTMLLinkElement;
         this.onGroupRemove(el.id);
         e.stopPropagation();
+    }
+
+    private handleCreateNewCommandButtonClick(e: MouseEvent): void {
+        this.showNewCommandForm = !this.showNewCommandForm;
+        this.requestUpdate();
+    }
+
+    private handleAddCommand(newCommand: IArgsKeeperCommand): void {
+        // todo: figure out rules for adding a command through an editor class
+        console.log(newCommand);
     }
 
     protected render(): TemplateResult {
@@ -53,21 +68,44 @@ export class GroupElement extends LitElement {
                 background-color: hsl(0, 0%, 96%);
             }
         </style>
-        <div class="box argsk-group" @click="${this.handleGroupBoxClick}">
-            <h3 class="title is-3">
-                ${this.group.name}
-                <a id="${this.group.name}" class="button is-danger"
-                    class="${this.determineRemoveButtonClass()}"
-                    ?disabled=${this.saving}
-                    @click=${this.handleGroupRemoveButtonClick}>-</a>
-            </h3>
-            <h5 class="subtitle is-5">${this.group.desc}</h5>
+        <div class="box argsk-group">
+            <div @click=${this.handleGroupBoxClick}>
+                <h3 class="title is-3">
+                    ${this.group.name}
+                    <a id="${this.group.name}"
+                        class=${this.determineRemoveButtonClass()}
+                        ?disabled=${this.saving}
+                        @click=${this.handleGroupRemoveButtonClick}>-</a>
+                </h3>
+                <h5 class="subtitle is-5">${this.group.desc}</h5>
+            </div>
+            ${this.determineShowGroupDetails()}
         </div>
         `;
     }
 
+    private determineShowGroupDetails(): TemplateResult {
+        if(this.showGroupDetails) {
+            return html`
+                <hr>
+                <h5 class="title is-5">
+                    Commands
+                    <a class="button is-success is-small"
+                        @click=${this.handleCreateNewCommandButtonClick}>+</a>
+                </h5>
+                ${this.showNewCommandForm?
+                    html`
+                        <argsk-command-form
+                            .saving=${this.saving}
+                            .onAddCommand=${this.handleAddCommand}></argsk-command-form>`: html``}
+            `;
+        } else {
+            return html``;
+        }
+    }
+
     private determineRemoveButtonClass(): string {
-        const baseClass: string = "button is-danger";
+        const baseClass: string = "button is-danger is-small";
         if(this.saving) {
             return baseClass + " is-loading";
         } else {
