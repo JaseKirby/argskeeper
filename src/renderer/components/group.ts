@@ -67,15 +67,23 @@ export class GroupElement extends LitElement {
                 cursor: pointer;
                 background-color: hsl(0, 0%, 96%);
             }
+            .argsk-remove-group-btn {
+                height: 25px;
+            }
+            .argsk-new-cmd-btn {
+                height: 15px;
+            }
         </style>
         <div class="box argsk-group">
             <div @click=${this.handleGroupBoxClick}>
                 <h3 class="title is-3">
                     ${this.group.name}
-                    <a id="${this.group.name}"
-                        class=${this.determineRemoveButtonClass()}
-                        ?disabled=${this.saving}
-                        @click=${this.handleGroupRemoveButtonClick}>-</a>
+                    <argsk-tooltip text="Remove this group">
+                        <a id="${this.group.name}"
+                            class=${this.determineRemoveButtonClass()}
+                            ?disabled=${this.saving}
+                            @click=${this.handleGroupRemoveButtonClick}>-</a>
+                    </argsk-tooltip>
                 </h3>
                 <h5 class="subtitle is-5">${this.group.desc}</h5>
             </div>
@@ -90,8 +98,10 @@ export class GroupElement extends LitElement {
                 <hr>
                 <h5 class="title is-5">
                     Commands
-                    <a class="button is-success is-small"
-                        @click=${this.handleCreateNewCommandButtonClick}>+</a>
+                    <argsk-tooltip text="Create new command">
+                        <a class="button is-success is-small argsk-new-cmd-btn"
+                            @click=${this.handleCreateNewCommandButtonClick}>+</a>
+                    </argsk-tooltip>
                 </h5>
                 ${this.showNewCommandForm?
                     html`
@@ -105,7 +115,7 @@ export class GroupElement extends LitElement {
     }
 
     private determineRemoveButtonClass(): string {
-        const baseClass: string = "button is-danger is-small";
+        const baseClass: string = "button is-danger is-small argsk-remove-group-btn";
         if(this.saving) {
             return baseClass + " is-loading";
         } else {

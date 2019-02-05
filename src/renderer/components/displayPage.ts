@@ -75,6 +75,11 @@ export class DisplayPageElement extends LitElement {
 
     protected render(): TemplateResult {
         return html`
+            <style>
+                .argsk-create-group-btn {
+                    height: 25px;
+                }
+            </style>
             <h1 class="title is-1">${this.argsKeeper.title}</h1>
             <p>${this.argsKeeper.desc}</p>
 
@@ -91,7 +96,7 @@ export class DisplayPageElement extends LitElement {
                 <h3 class="title is-3">
                     GROUPS
                     <argsk-tooltip text="Create new group">
-                        <a class="button is-success is-small"
+                        <a class="button is-success is-small argsk-create-group-btn"
                             @click=${this.handleAddGroupClick}>+</a>
                     </argsk-tooltip>
                 </h3>
