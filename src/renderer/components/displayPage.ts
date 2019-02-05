@@ -2,11 +2,12 @@ import { html, LitElement, property } from "@polymer/lit-element";
 import { TemplateResult } from "lit-html";
 import { IArgsKeeper } from "../../models/argsKeeper";
 import { IArgsKeeperGroup } from "../../models/argsKeeperGroup";
+import { ArgsKeeperEditor } from "../../editors/argsKeeperEditor";
 import "./search";
 import "./groupForm";
 import "./groupList";
 import "./group";
-import { ArgsKeeperEditor } from "../../editors/argsKeeperEditor";
+import "./tooltip";
 
 export class DisplayPageElement extends LitElement {
     public static elName: string = "argsk-display";
@@ -89,8 +90,10 @@ export class DisplayPageElement extends LitElement {
             <div class="box">
                 <h3 class="title is-3">
                     GROUPS
-                    <a class="button is-success is-small"
-                        @click=${this.handleAddGroupClick}>+</a>
+                    <argsk-tooltip text="Create new group">
+                        <a class="button is-success is-small"
+                            @click=${this.handleAddGroupClick}>+</a>
+                    </argsk-tooltip>
                 </h3>
                 ${this.showGroupForm?
                     html`<argsk-group-form
