@@ -34,8 +34,13 @@ export class CommandFormElement extends LitElement {
         this.command.name = el.value;
     }
 
+    private handleCommandDescChange(e: KeyboardEvent): void {
+        const el: HTMLTextAreaElement = e.target as HTMLTextAreaElement;
+        this.command.desc = el.value;
+    }
+
     private handleExecTemplateChange(e: KeyboardEvent): void {
-        const el: HTMLInputElement = e.target as HTMLInputElement;
+        const el: HTMLTextAreaElement = e.target as HTMLTextAreaElement;
         this.command.exec = el.value;
     }
 
@@ -56,6 +61,12 @@ export class CommandFormElement extends LitElement {
                             @keyup=${this.handleCommandNameChange}/>
                     </div>
                     <p class="help is-info">${this.commandNameValidationMsg}</p>
+                </div>
+                <div class="field">
+                    <label class="label">Command Description</label>
+                    <div class="control">
+                        <textarea class="textarea" @keyup="${this.handleCommandDescChange}"></textarea>
+                    </div>
                 </div>
                 <div class="field">
                     <label class="label">Execution Template</label>
