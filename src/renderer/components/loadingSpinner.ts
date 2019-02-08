@@ -1,5 +1,4 @@
-import { html, LitElement } from "@polymer/lit-element";
-import { TemplateResult } from "lit-html";
+import { html, LitElement, TemplateResult } from "lit-element";
 
 export class LoadingSpinnerElement extends LitElement {
     public static elName: string = "argsk-loading-spinner";

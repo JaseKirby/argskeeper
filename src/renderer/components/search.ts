@@ -1,5 +1,4 @@
-import { html, LitElement, property } from "@polymer/lit-element";
-import { TemplateResult } from "lit-html";
+import { html, LitElement, property, TemplateResult } from "lit-element";
 import { debounceTime } from "rxjs/operators";
 import { Subject } from "rxjs";
 

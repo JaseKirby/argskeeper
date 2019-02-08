@@ -1,5 +1,4 @@
-import { html, LitElement, property } from "@polymer/lit-element";
-import { TemplateResult } from "lit-html";
+import { html, LitElement, property, TemplateResult } from "lit-element";
 import { IArgsKeeperCommand, ArgsKeeperCommand } from "../../models/argsKeeperCommand";
 
 export class CommandFormElement extends LitElement {

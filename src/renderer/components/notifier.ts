@@ -1,5 +1,4 @@
-import { html, LitElement, property } from "@polymer/lit-element";
-import { TemplateResult } from "lit-html";
+import { html, LitElement, property, TemplateResult } from "lit-element";
 
 export class NotifierElement extends LitElement {
     public static elName: string = "argsk-notifier";
