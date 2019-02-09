@@ -79,7 +79,7 @@ export class DisplayPageElement extends LitElement {
                     margin-bottom:2px;
                 }
                 .argsk-create-group-btn {
-                    height: 25px;
+                    height: 20px;
                 }
             </style>
             <h1 class="title is-1">${this.argsKeeper.title}</h1>

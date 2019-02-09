@@ -1,5 +1,7 @@
 import { html, LitElement, property, TemplateResult } from "lit-element";
 import { IArgsKeeperCommand, ArgsKeeperCommand } from "../../models/argsKeeperCommand";
+import "./argForm";
+import "./tooltip";
 
 export class CommandFormElement extends LitElement {
     public static elName: string = "argsk-command-form";
@@ -12,6 +14,7 @@ export class CommandFormElement extends LitElement {
 
     private command: IArgsKeeperCommand = new ArgsKeeperCommand();
     private commandNameValidationMsg: string = "";
+    private showArgForm: boolean = false;
 
     constructor() {
         super();
@@ -47,6 +50,11 @@ export class CommandFormElement extends LitElement {
         this.onAddCommand(this.command);
     }
 
+    private handleAddNewArgClick(): void {
+        this.showArgForm = !this.showArgForm;
+        this.requestUpdate();
+    }
+
     protected render(): TemplateResult {
         return html`
             <div class="box">
@@ -75,13 +83,21 @@ export class CommandFormElement extends LitElement {
                             placeholder="executable run --arg=\${arg}"></textarea>
                     </div>
                 </div>
-                <h5 class="title is-5">Create New Arguments for Command</h5>
-                <p>todo: create args form here for and display args already added to this command somewhere</p>
+                <h5 class="title is-5">
+                    Create New Argument
+                    <argsk-tooltip text="Create new argument">
+                        <a class="button is-success is-small argsk-new-cmd-btn"
+                            @click=${this.handleAddNewArgClick}>+</a>
+                    </argsk-tooltip>
+                </h5>
+
+                ${this.showArgForm? html`<argsk-arg-form></argsk-arg-form>`:html``}
+
                 <div class="field">
                     <div class="control">
                         <button class=${this.determineCreateButtonClass()}
                             ?disabled=${this.saving}
-                            @click=${this.handleCreateCommandClick}>Create</button>
+                            @click=${this.handleCreateCommandClick}>Create Command</button>
                     </div>
                 </div>
             </div>

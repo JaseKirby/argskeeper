@@ -67,7 +67,7 @@ export class GroupElement extends LitElement {
                 background-color: hsl(0, 0%, 96%);
             }
             .argsk-remove-group-btn {
-                height: 25px;
+                height: 20px;
             }
             .argsk-new-cmd-btn {
                 height: 15px;

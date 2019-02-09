@@ -62,7 +62,7 @@ export class GroupFormElement extends LitElement {
                 <div class="field">
                     <div class="control">
                         <button class="${this.determineCreateButtonClass()}"
-                            ?disabled="${this.saving}" @click="${this.handleCreateGroupClick}">Create</button>
+                            ?disabled="${this.saving}" @click="${this.handleCreateGroupClick}">Create Group</button>
                     </div>
                 </div>
             </div>
