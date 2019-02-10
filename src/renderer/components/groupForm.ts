@@ -10,7 +10,7 @@ export class GroupFormElement extends LitElement {
     @property({type: Object})
     public onAddGroup: (newGroup: IArgsKeeperGroup) => void;
 
-    private group: IArgsKeeperGroup = {name: "", desc: ""};
+    private group: IArgsKeeperGroup = {name: "", desc: "", commands: []};
     private groupNameValidationMsg: string = "";
 
     constructor() {

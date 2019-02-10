@@ -96,7 +96,7 @@ export class GroupElement extends LitElement {
             return html`
                 <hr>
                 <h5 class="title is-5">
-                    Commands
+                    COMMANDS
                     <argsk-tooltip text="Create new command">
                         <a class="button is-success is-small argsk-new-cmd-btn"
                             @click=${this.handleCreateNewCommandButtonClick}>+</a>

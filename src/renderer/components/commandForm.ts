@@ -2,6 +2,7 @@ import { html, LitElement, property, TemplateResult } from "lit-element";
 import { IArgsKeeperCommand, ArgsKeeperCommand } from "../../models/argsKeeperCommand";
 import "./argForm";
 import "./tooltip";
+import { IArgsKeeperArg, ArgsKeeperArg } from "../../models/argsKeeperArg";
 
 export class CommandFormElement extends LitElement {
     public static elName: string = "argsk-command-form";
@@ -12,12 +13,13 @@ export class CommandFormElement extends LitElement {
     @property({type: Object})
     public onAddCommand: (newCommand: IArgsKeeperCommand) => void;
 
-    private command: IArgsKeeperCommand = new ArgsKeeperCommand();
+    private command: IArgsKeeperCommand = { name: "", desc: "", exec: "", args: [] };
     private commandNameValidationMsg: string = "";
     private showArgForm: boolean = false;
 
     constructor() {
         super();
+        this.handleAddArg = this.handleAddArg.bind(this);
     }
 
     // implement this method and return this to remove shadow dom and use global style
@@ -55,52 +57,84 @@ export class CommandFormElement extends LitElement {
         this.requestUpdate();
     }
 
+    private handleAddArg(newArg: IArgsKeeperArg): void {
+        this.command.args = [...this.command.args, newArg];
+        this.showArgForm = false;
+        this.requestUpdate();
+    }
+
     protected render(): TemplateResult {
         return html`
-            <div class="box">
-                <h4 class="title is-4">Create New Command</h4>
-                <div class="field">
-                    <label class="label">Command Name</label>
-                    <div class="control">
-                        <input
-                            class="input" type="text"
-                            placeholder="executableRunArg"
-                            @keyup=${this.handleCommandNameChange}/>
-                    </div>
-                    <p class="help is-info">${this.commandNameValidationMsg}</p>
+        <div class="box" style="cursor: default">
+            <h4 class="title is-4">Create New Command</h4>
+            <div class="field">
+                <label class="label">Command Name</label>
+                <div class="control">
+                    <input
+                        class="input" type="text"
+                        placeholder="executableRunArg"
+                        @keyup=${this.handleCommandNameChange}/>
                 </div>
-                <div class="field">
-                    <label class="label">Command Description</label>
-                    <div class="control">
-                        <textarea class="textarea" @keyup="${this.handleCommandDescChange}"></textarea>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Execution Template</label>
-                    <div class="control">
-                        <textarea class="textarea"
-                            @keyup="${this.handleExecTemplateChange}"
-                            placeholder="executable run --arg=\${arg}"></textarea>
-                    </div>
-                </div>
-                <h5 class="title is-5">
-                    Create New Argument
-                    <argsk-tooltip text="Create new argument">
-                        <a class="button is-success is-small argsk-new-cmd-btn"
-                            @click=${this.handleAddNewArgClick}>+</a>
-                    </argsk-tooltip>
-                </h5>
-
-                ${this.showArgForm? html`<argsk-arg-form></argsk-arg-form>`:html``}
-
-                <div class="field">
-                    <div class="control">
-                        <button class=${this.determineCreateButtonClass()}
-                            ?disabled=${this.saving}
-                            @click=${this.handleCreateCommandClick}>Create Command</button>
-                    </div>
+                <p class="help is-info">${this.commandNameValidationMsg}</p>
+            </div>
+            <div class="field">
+                <label class="label">Command Description</label>
+                <div class="control">
+                    <textarea class="textarea" @keyup="${this.handleCommandDescChange}"></textarea>
                 </div>
             </div>
+            <div class="field">
+                <label class="label">Execution Template</label>
+                <div class="control">
+                    <textarea class="textarea"
+                        @keyup="${this.handleExecTemplateChange}"
+                        placeholder="executable run --arg=\${arg}"></textarea>
+                </div>
+            </div>
+
+            <h5 class="title is-5">
+                Arguments
+                <span class="tag">${this.command.args.length}</span>
+            </h5>
+            <table class="table is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                ${this.command.args.map((arg) => html`
+                    <tr>
+                        <td>${arg.name}</td>
+                        <td>${arg.default}</td>
+                        <td>${arg.desc}</td>
+                    </tr>`)}
+                </tbody>
+            </table>
+            
+            <br>
+
+            <h5 class="title is-5">
+                Create New Argument
+                <argsk-tooltip text="Create new argument">
+                    <a class="button is-success is-small argsk-new-cmd-btn"
+                        @click=${this.handleAddNewArgClick}>+</a>
+                </argsk-tooltip>
+            </h5>
+
+            ${this.showArgForm?
+                html`<argsk-arg-form .onAddArg=${this.handleAddArg}></argsk-arg-form>`:html``}
+
+            <div class="field">
+                <div class="control">
+                    <button class=${this.determineCreateButtonClass()}
+                        ?disabled=${this.saving}
+                        @click=${this.handleCreateCommandClick}>Create Command</button>
+                </div>
+            </div>
+        </div>
         `;
     }
 
