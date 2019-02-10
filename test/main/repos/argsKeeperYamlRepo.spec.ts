@@ -2,7 +2,6 @@ import { IArgsKeeperRepo } from "../../../src/repos/argsKeeperRepo";
 import { ArgsKeeperYamlRepo } from "../../../src/main/repos/argsKeeperYamlRepo";
 import { IArgsKeeper, ArgsKeeper } from "../../../src/models/argsKeeper";
 import { IArgsKeeperGroup } from "../../../src/models/argsKeeperGroup";
-import { IArgsKeeperProgram } from "../../../src/models/argsKeeperProgram";
 import { IArgsKeeperCommand } from "../../../src/models/argsKeeperCommand";
 import * as path from "path";
 import * as fs from "fs";
