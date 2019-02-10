@@ -1,10 +1,7 @@
 import { IArgsKeeper, ArgsKeeper } from "../../../src/models/argsKeeper";
 import { IArgsKeeperGroup } from "../../../src/models/argsKeeperGroup";
-import {
-    ArgsKeeperEditor,
-    ArgskGroupNameAlreadyExistsError,
-    ArgskWhiteSpaceInNameError,
-    ArgskPeriodInNameError } from "../../../src/editors/argsKeeperEditor";
+import { ArgsKeeperEditor, ArgskGroupNameAlreadyExistsError} from "../../../src/editors/argsKeeperEditor";
+import { ArgskWhiteSpaceInNameError, ArgskPeriodInNameError } from "../../../src/validator/nameKeyValidator";
 import * as assert from "assert";
 
 describe("ArgsKeeperEditor", () => {
@@ -16,7 +13,7 @@ describe("ArgsKeeperEditor", () => {
         editor.addGroup(linuxGroup);
 
         assert.equal(argsKeeper.groups.length, 1);
-        assert.equal(argsKeeper.groups[0].name, "linux");
+        assert.equal(argsKeeper.groups[0].name, linuxGroup.name);
     });
 
     it("adding a group where a group with the same name exists throws ArgskGroupNameAlreadyExistsError", () => {

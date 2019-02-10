@@ -11,5 +11,5 @@ export class ArgsKeeperGroup implements IArgsKeeperGroup {
     public name: string;
     public desc?: string;
     public tags?: string[];
-    public commands?: ArgsKeeperCommand[];
+    public commands?: ArgsKeeperCommand[] = [];
 }

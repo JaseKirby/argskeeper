@@ -1,5 +1,6 @@
 import { IArgsKeeper } from "../models/argsKeeper";
 import { IArgsKeeperGroup } from "../models/argsKeeperGroup";
+import { NameKeyValidator } from "../validator/nameKeyValidator";
 
 export class ArgsKeeperEditor {
     private argsKeeper: IArgsKeeper;
@@ -7,32 +8,12 @@ export class ArgsKeeperEditor {
         this.argsKeeper = argsKeeper;
     }
 
-    private doesNameKeyHaveWhitespace(nameKey: string): boolean {
-        if (nameKey.indexOf(" ") >= 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private doesNameKeyHavePeriod(nameKey: string): boolean {
-        if(nameKey.indexOf(".") >= 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public addGroup(newGroup: IArgsKeeperGroup): void {
+        const nameKeyValidator: NameKeyValidator = new NameKeyValidator(newGroup.name);
+        nameKeyValidator.isNameKeyValid(); // throws errors if invalid
         const groupsWithThisNameCount: number = this.argsKeeper.groups.filter(x => x.name === newGroup.name).length;
         if(groupsWithThisNameCount > 0) {
             throw new ArgskGroupNameAlreadyExistsError(newGroup.name);
-        }
-        if(this.doesNameKeyHaveWhitespace(newGroup.name)) {
-            throw new ArgskWhiteSpaceInNameError(newGroup.name);
-        }
-        if(this.doesNameKeyHavePeriod(newGroup.name)) {
-            throw new ArgskPeriodInNameError(newGroup.name);
         }
         this.argsKeeper.groups.push(newGroup);
     }
@@ -46,19 +27,5 @@ export class ArgskGroupNameAlreadyExistsError extends Error {
     constructor(groupName: string) {
         super(`Group with name ${groupName} already exists in groups. Group names must be unique.`);
         this.name = "ArgskGroupNameAlreadyExistsError";
-    }
-}
-
-export class ArgskWhiteSpaceInNameError extends Error {
-    constructor(name: string) {
-        super(`Whitespace found in name key '${name}'. No whitespace allowed in name keys.`);
-        this.name = "ArgskWhiteSpaceInNameError";
-    }
-}
-
-export class ArgskPeriodInNameError extends Error {
-    constructor(name: string) {
-        super(`Period found in name key '${name}'. Periods are not allowed in name keys.`);
-        this.name = "ArgskPeriodInNameError";
     }
 }
