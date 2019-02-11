@@ -1,8 +1,9 @@
 import { html, LitElement, property, TemplateResult } from "lit-element";
 import { IArgsKeeperGroup } from "../../models/argsKeeperGroup";
-import "./commandForm";
 import { IArgsKeeperCommand } from "../../models/argsKeeperCommand";
 import { GroupEditor } from "../../editors/groupEditor";
+import "./commandForm";
+import "./command";
 
 export class GroupElement extends LitElement {
     public static elName: string = "argsk-group";
@@ -78,7 +79,7 @@ export class GroupElement extends LitElement {
             .argsk-group {
                 margin-bottom: 5px;
             }
-            .argsk-group:hover {
+            .argsk-group-title:hover {
                 cursor: pointer;
                 background-color: hsl(0, 0%, 96%);
             }
@@ -90,7 +91,7 @@ export class GroupElement extends LitElement {
             }
         </style>
         <div class="box argsk-group">
-            <div @click=${this.handleGroupBoxClick}>
+            <div class="argsk-group-title" @click=${this.handleGroupBoxClick}>
                 <h3 class="title is-3">
                     ${this.group.name}
                     <argsk-tooltip text="Remove this group">
@@ -109,6 +110,10 @@ export class GroupElement extends LitElement {
 
     private determineShowGroupDetails(): TemplateResult {
         if(this.showGroupDetails) {
+            let commandsToShow: IArgsKeeperCommand[] = this.group.commands;
+            if(this.commandFilter !== undefined) {
+                commandsToShow = this.group.commands.filter(x => x.name.startsWith(this.commandFilter));
+            }
             return html`
             <hr>
             <h5 class="title is-5">
@@ -127,8 +132,14 @@ export class GroupElement extends LitElement {
                 </argsk-command-form>`
                 : html``}
             
-            ${this.group.commands.map((val, i) =>
-                html`<p>${val.name} => ${val.exec}</p>`
+            ${commandsToShow.map((val, i) =>
+                html`
+                <argsk-command
+                    .saving=${this.saving}
+                    .key=${i}
+                    .command=${val}>
+                </argsk-command>
+                `
             )}
             `;
         } else {

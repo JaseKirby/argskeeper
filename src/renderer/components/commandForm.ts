@@ -65,7 +65,7 @@ export class CommandFormElement extends LitElement {
 
     protected render(): TemplateResult {
         return html`
-        <div class="box" style="cursor: default">
+        <div class="box">
             <h4 class="title is-4">Create New Command</h4>
             <div class="field">
                 <label class="label">Command Name</label>
