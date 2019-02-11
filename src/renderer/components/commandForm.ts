@@ -78,17 +78,17 @@ export class CommandFormElement extends LitElement {
                 <p class="help is-info">${this.commandNameValidationMsg}</p>
             </div>
             <div class="field">
-                <label class="label">Command Description</label>
-                <div class="control">
-                    <textarea class="textarea" @keyup="${this.handleCommandDescChange}"></textarea>
-                </div>
-            </div>
-            <div class="field">
                 <label class="label">Execution Template</label>
                 <div class="control">
                     <textarea class="textarea"
                         @keyup="${this.handleExecTemplateChange}"
                         placeholder="executable run --arg=\${arg}"></textarea>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Command Description</label>
+                <div class="control">
+                    <textarea class="textarea" @keyup="${this.handleCommandDescChange}"></textarea>
                 </div>
             </div>
 

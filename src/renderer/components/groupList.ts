@@ -14,15 +14,22 @@ export class GroupListElement extends LitElement {
     @property({type: Object})
     public onGroupRemove: (groupToRemoveName: string) => void;
 
+    @property({type: Object})
+    public onGroupsChange: (newGroups: IArgsKeeperGroup[]) => void;
+
     @property({type: String})
     public groupFilter: string;
 
     @property({type: Object})
     public commandFilter: string;
 
+    @property({type: Object})
+    public onErrors: (errors: string[]) => void;
+
     constructor() {
         super();
         this.handleGroupRemove = this.handleGroupRemove.bind(this);
+        this.handleGroupChange = this.handleGroupChange.bind(this);
     }
 
     // implement this method and return this to remove shadow dom and use global style
@@ -34,19 +41,27 @@ export class GroupListElement extends LitElement {
         this.onGroupRemove(groupToRemoveName);
     }
 
+    private handleGroupChange(index: number, newGroup: IArgsKeeperGroup) {
+        this.groups[index] = newGroup;
+        this.onGroupsChange(this.groups);
+    }
+
     protected render(): TemplateResult {
         let groupsToShow: IArgsKeeperGroup[] = this.groups;
         if(this.groupFilter !== undefined) {
             groupsToShow = groupsToShow.filter(g => g.name.startsWith(this.groupFilter));
         }
         return html`
-            ${groupsToShow.map((val) =>
+            ${groupsToShow.map((val, i) =>
                 html`
                 <argsk-group
                     ?saving=${this.saving}
+                    .key=${i}
                     .group=${val}
                     .onGroupRemove=${this.handleGroupRemove}
-                    .commandFilter=${this.commandFilter}>
+                    .onGroupChange=${this.handleGroupChange}
+                    .commandFilter=${this.commandFilter}
+                    .onErrors=${this.onErrors}>
                 </argsk-group>`
             )}
         `;

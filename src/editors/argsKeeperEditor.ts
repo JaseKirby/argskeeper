@@ -6,6 +6,9 @@ export class ArgsKeeperEditor {
     private argsKeeper: IArgsKeeper;
     constructor(argsKeeper: IArgsKeeper) {
         this.argsKeeper = argsKeeper;
+        if(this.argsKeeper.groups === undefined) {
+            this.argsKeeper.groups = [];
+        }
     }
 
     public addGroup(newGroup: IArgsKeeperGroup): void {

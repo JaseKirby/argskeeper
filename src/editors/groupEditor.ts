@@ -7,6 +7,9 @@ export class GroupEditor {
 
     constructor(group: IArgsKeeperGroup) {
         this.group = group;
+        if(this.group.commands === undefined) {
+            this.group.commands = [];
+        }
     }
 
     public addCommand(newCommand: IArgsKeeperCommand) {

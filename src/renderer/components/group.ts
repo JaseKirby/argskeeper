@@ -2,12 +2,16 @@ import { html, LitElement, property, TemplateResult } from "lit-element";
 import { IArgsKeeperGroup } from "../../models/argsKeeperGroup";
 import "./commandForm";
 import { IArgsKeeperCommand } from "../../models/argsKeeperCommand";
+import { GroupEditor } from "../../editors/groupEditor";
 
 export class GroupElement extends LitElement {
     public static elName: string = "argsk-group";
 
     @property({type: Boolean})
     public saving: boolean = false;
+
+    @property({type: Number})
+    public key: number;
 
     @property({type: Object})
     public group: IArgsKeeperGroup;
@@ -17,6 +21,12 @@ export class GroupElement extends LitElement {
 
     @property({type: Object})
     public onGroupRemove: (groupName: string) => void;
+
+    @property({type: Object})
+    public onGroupChange: (index: number, newGroup: IArgsKeeperGroup) => void;
+
+    @property({type: Object})
+    public onErrors: (errors: string[]) => void;
 
     @property({type: Boolean})
     public showGroupDetails: boolean;
@@ -50,8 +60,14 @@ export class GroupElement extends LitElement {
     }
 
     private handleAddCommand(newCommand: IArgsKeeperCommand): void {
-        // todo: figure out rules for adding a command through an editor class
-        console.log(newCommand);
+        const groupEditor: GroupEditor = new GroupEditor(this.group);
+        try{
+            groupEditor.addCommand(newCommand);
+            this.onGroupChange(this.key, this.group);
+            this.showNewCommandForm = false;
+        } catch(err) {
+            this.onErrors([err]);
+        }
     }
 
     protected render(): TemplateResult {
@@ -94,19 +110,26 @@ export class GroupElement extends LitElement {
     private determineShowGroupDetails(): TemplateResult {
         if(this.showGroupDetails) {
             return html`
-                <hr>
-                <h5 class="title is-5">
-                    COMMANDS
-                    <argsk-tooltip text="Create new command">
-                        <a class="button is-success is-small argsk-new-cmd-btn"
-                            @click=${this.handleCreateNewCommandButtonClick}>+</a>
-                    </argsk-tooltip>
-                </h5>
-                ${this.showNewCommandForm?
-                    html`
-                        <argsk-command-form
-                            .saving=${this.saving}
-                            .onAddCommand=${this.handleAddCommand}></argsk-command-form>`: html``}
+            <hr>
+            <h5 class="title is-5">
+                COMMANDS
+                <argsk-tooltip text="Create new command">
+                    <a class="button is-success is-small argsk-new-cmd-btn"
+                        @click=${this.handleCreateNewCommandButtonClick}>+</a>
+                </argsk-tooltip>
+            </h5>
+
+            ${this.showNewCommandForm?
+                html`
+                <argsk-command-form
+                    .saving=${this.saving}
+                    .onAddCommand=${this.handleAddCommand}>
+                </argsk-command-form>`
+                : html``}
+            
+            ${this.group.commands.map((val, i) =>
+                html`<p>${val.name} => ${val.exec}</p>`
+            )}
             `;
         } else {
             return html``;

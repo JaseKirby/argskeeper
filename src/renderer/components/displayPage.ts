@@ -33,6 +33,7 @@ export class DisplayPageElement extends LitElement {
         this.handleCommandSearch = this.handleCommandSearch.bind(this);
         this.handleAddGroup = this.handleAddGroup.bind(this);
         this.handleGroupRemove = this.handleGroupRemove.bind(this);
+        this.handleGroupsChange = this.handleGroupsChange.bind(this);
     }
 
     // implement this method and return this to remove shadow dom and use global style
@@ -59,6 +60,11 @@ export class DisplayPageElement extends LitElement {
     private handleGroupRemove(groupToRemoveName: string): void {
         const editor: ArgsKeeperEditor = new ArgsKeeperEditor(this.argsKeeper);
         editor.removeGroupByName(groupToRemoveName);
+        this.onArgsKeeperChange(this.argsKeeper);
+    }
+    
+    private handleGroupsChange(newGroups: IArgsKeeperGroup[]): void {
+        this.argsKeeper.groups = newGroups;
         this.onArgsKeeperChange(this.argsKeeper);
     }
 
@@ -113,8 +119,10 @@ export class DisplayPageElement extends LitElement {
                     ?saving=${this.saving}
                     .groups=${this.argsKeeper.groups}
                     .onGroupRemove=${this.handleGroupRemove}
+                    .onGroupsChange=${this.handleGroupsChange}
                     .groupFilter=${this.groupFilter}
-                    .commandFilter=${this.commandFilter}>
+                    .commandFilter=${this.commandFilter}
+                    .onErrors=${this.onErrors}>
                 </argsk-group-list>
             </div>
         `;
