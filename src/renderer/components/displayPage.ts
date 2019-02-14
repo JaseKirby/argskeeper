@@ -70,6 +70,7 @@ export class DisplayPageElement extends LitElement {
 
     private handleGroupSearch(groupSearchKey: string): void {
         this.groupFilter = groupSearchKey;
+        this.commandFilter = "";
         this.requestUpdate();
     }
 

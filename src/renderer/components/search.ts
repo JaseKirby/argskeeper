@@ -16,9 +16,8 @@ export class SearchElement extends LitElement {
     constructor() {
         super();
         this.searchSubj = new Subject();
-        this.searchSubj.pipe(debounceTime(1000)).subscribe((s) => {
+        this.searchSubj.pipe(debounceTime(900)).subscribe((s) => {
             const searches: string[] = s.split(".");
-            // todo: figure out search or filter in main page
             if(searches.length === 1) {
                 this.onGroupSearch(searches[0]);
             }
