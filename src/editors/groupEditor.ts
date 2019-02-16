@@ -1,6 +1,6 @@
 import { IArgsKeeperGroup } from "../models/argsKeeperGroup";
 import { IArgsKeeperCommand } from "../models/argsKeeperCommand";
-import { NameKeyValidator } from "../validator/nameKeyValidator";
+import { NameKeyValidator } from "../validators/nameKeyValidator";
 
 export class GroupEditor {
     private group: IArgsKeeperGroup;
