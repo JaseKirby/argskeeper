@@ -82,7 +82,7 @@ export class CommandFormElement extends LitElement {
                 <div class="control">
                     <textarea class="textarea"
                         @keyup="${this.handleExecTemplateChange}"
-                        placeholder="executable run --arg=\${arg}"></textarea>
+                        placeholder="executable run --arg={{arg}}"></textarea>
                 </div>
             </div>
             <div class="field">

@@ -14,12 +14,12 @@ describe("NameKeyValidator", () => {
         const nValidator: NameKeyValidator = new NameKeyValidator(wSpaceNameKey);
         const checkingValid: Function = () => nValidator.isNameKeyValid();
         assert.throws(checkingValid, ArgskWhiteSpaceInNameError);
-    })
+    });
 
     it("checking a name with periods throws throws ArgskPeriodInNameError", () => {
         const periodNameKey: string = "the.Name";
         const nValidator: NameKeyValidator = new NameKeyValidator(periodNameKey);
         const checkingValid: Function = () => nValidator.isNameKeyValid();
         assert.throws(checkingValid, ArgskPeriodInNameError);
-    })
+    });
 })
