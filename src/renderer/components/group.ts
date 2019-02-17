@@ -95,7 +95,7 @@ export class GroupElement extends LitElement {
                 <h3 class="title is-3">
                     ${this.group.name}
                     <argsk-tooltip text="Remove this group">
-                        <a id="${this.group.name}"
+                        <a name=${this.group.name}
                             class=${this.determineRemoveButtonClass()}
                             ?disabled=${this.saving}
                             @click=${this.handleGroupRemoveButtonClick}>-</a>
