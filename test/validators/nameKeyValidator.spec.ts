@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { NameKeyValidator, ArgskWhiteSpaceInNameError, ArgskPeriodInNameError } from "../../../src/validators/nameKeyValidator";
+import { NameKeyValidator, ArgskWhiteSpaceInNameError, ArgskPeriodInNameError } from "../../src/validators/nameKeyValidator";
 
 describe("NameKeyValidator", () => {
     it("can check for valid name", () => {

@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { NoValueValidator } from "../../../src/validators/noValueValidator";
+import { NoValueValidator } from "../../src/validators/noValueValidator";
 
 describe("NoValueValidator", () => {
     it("can check for value", () => {

@@ -1,7 +1,7 @@
-import { IArgsKeeper, ArgsKeeper } from "../../../src/models/argsKeeper";
-import { IArgsKeeperGroup } from "../../../src/models/argsKeeperGroup";
-import { ArgsKeeperEditor, ArgskGroupNameAlreadyExistsError} from "../../../src/editors/argsKeeperEditor";
-import { ArgskWhiteSpaceInNameError, ArgskPeriodInNameError } from "../../../src/validators/nameKeyValidator";
+import { IArgsKeeper, ArgsKeeper } from "../../src/models/argsKeeper";
+import { IArgsKeeperGroup } from "../../src/models/argsKeeperGroup";
+import { ArgsKeeperEditor, ArgskGroupNameAlreadyExistsError} from "../../src/editors/argsKeeperEditor";
+import { ArgskWhiteSpaceInNameError, ArgskPeriodInNameError } from "../../src/validators/nameKeyValidator";
 import * as assert from "assert";
 
 describe("ArgsKeeperEditor", () => {
