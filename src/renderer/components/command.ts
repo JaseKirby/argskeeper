@@ -15,6 +15,9 @@ export class CommandElement extends LitElement {
     @property({type: Object})
     public command: IArgsKeeperCommand;
 
+    @property({type: Object})
+    public onCommandRemove: (commandName: string) => void;
+
     private renderedExecTemplate: string;
     private defaultCopyTooltipMsg: string = "Copy to clipboard";
     private copyTooltipMsg: string = "Copy to clipboard";
@@ -47,9 +50,10 @@ export class CommandElement extends LitElement {
     }
 
     private handleRemoveCommandBtnClick(e: MouseEvent): void {
-        // todo: implement remove command handling here with key
+        this.onCommandRemove(this.command.name);
     }
 
+    // todo: fix undefined from popping up in value by moving to command list component above
     protected render(): TemplateResult {
         const ctTransformer: CommandTemplateTransformer = new CommandTemplateTransformer(this.command);
         this.renderedExecTemplate = ctTransformer.renderExecutionTemplate();

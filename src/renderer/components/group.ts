@@ -37,6 +37,7 @@ export class GroupElement extends LitElement {
     constructor() {
         super();
         this.handleAddCommand = this.handleAddCommand.bind(this);
+        this.handleCommandRemove = this.handleCommandRemove.bind(this);
     }
 
     // implement this method and return this to remove shadow dom and use global style
@@ -69,6 +70,12 @@ export class GroupElement extends LitElement {
         } catch(err) {
             this.onErrors([err]);
         }
+    }
+
+    private handleCommandRemove(commandName: string): void {
+        const ge: GroupEditor = new GroupEditor(this.group);
+        ge.removeCommandByName(commandName);
+        this.onGroupChange(this.key, this.group);
     }
 
     protected render(): TemplateResult {
@@ -137,7 +144,8 @@ export class GroupElement extends LitElement {
                 <argsk-command
                     .saving=${this.saving}
                     .key=${i}
-                    .command=${val}>
+                    .command=${val}
+                    .onCommandRemove=${this.handleCommandRemove}>
                 </argsk-command>
                 `
             )}

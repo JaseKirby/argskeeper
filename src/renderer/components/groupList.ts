@@ -42,6 +42,7 @@ export class GroupListElement extends LitElement {
     }
 
     private handleGroupChange(index: number, newGroup: IArgsKeeperGroup) {
+        // todo: apply fix here since groups to show is diff than actual need to edit by name
         this.groups[index] = newGroup;
         this.onGroupsChange(this.groups);
     }
