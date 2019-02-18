@@ -24,7 +24,7 @@ export class GroupElement extends LitElement {
     public onGroupRemove: (groupName: string) => void;
 
     @property({type: Object})
-    public onGroupChange: (index: number, newGroup: IArgsKeeperGroup) => void;
+    public onGroupChange: () => void;
 
     @property({type: Object})
     public onErrors: (errors: string[]) => void;
@@ -65,7 +65,7 @@ export class GroupElement extends LitElement {
         const groupEditor: GroupEditor = new GroupEditor(this.group);
         try{
             groupEditor.addCommand(newCommand);
-            this.onGroupChange(this.key, this.group);
+            this.onGroupChange();
             this.showNewCommandForm = false;
         } catch(err) {
             this.onErrors([err]);
@@ -75,7 +75,7 @@ export class GroupElement extends LitElement {
     private handleCommandRemove(commandName: string): void {
         const ge: GroupEditor = new GroupEditor(this.group);
         ge.removeCommandByName(commandName);
-        this.onGroupChange(this.key, this.group);
+        this.onGroupChange();
     }
 
     protected render(): TemplateResult {

@@ -1,7 +1,7 @@
-import { IArgsKeeperGroup, ArgsKeeperGroup } from "../../../src/models/argsKeeperGroup";
+import { IArgsKeeperGroup, ArgsKeeperGroup } from "../../src/models/argsKeeperGroup";
+import { GroupEditor, ArgskCommandNameAlreadyExistsError } from "../../src/editors/groupEditor";
+import { IArgsKeeperCommand } from "../../src/models/argsKeeperCommand";
 import * as assert from "assert";
-import { GroupEditor, ArgskCommandNameAlreadyExistsError } from "../../../src/editors/groupEditor";
-import { IArgsKeeperCommand } from "../../../src/models/argsKeeperCommand";
 
 describe("GroupEditor", () => {
 

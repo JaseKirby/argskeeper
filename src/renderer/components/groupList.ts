@@ -41,9 +41,7 @@ export class GroupListElement extends LitElement {
         this.onGroupRemove(groupToRemoveName);
     }
 
-    private handleGroupChange(index: number, newGroup: IArgsKeeperGroup) {
-        // todo: apply fix here since groups to show is diff than actual need to edit by name
-        this.groups[index] = newGroup;
+    private handleGroupChange() {
         this.onGroupsChange(this.groups);
     }
 
