@@ -59,30 +59,30 @@ export class CommandElement extends LitElement {
         this.renderedExecTemplate = ctTransformer.renderExecutionTemplate();
         return html`
         <style>
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
+            .tooltip {
+                position: relative;
+                display: inline-block;
+            }
 
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 120px;
-            background-color: black;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px 0;
-            
-            /* Position the tooltip */
-            position: absolute;
-            z-index: 1;
-            top: -5px;
-            right: 105%;
-        }
+            .tooltip .tooltiptext {
+                visibility: hidden;
+                width: 300px;
+                background-color: black;
+                color: #fff;
+                text-align: center;
+                border-radius: 6px;
+                padding: 5px 0;
+                
+                /* Position the tooltip */
+                position: absolute;
+                z-index: 1;
+                top: -5px;
+                right: 105%;
+            }
 
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-        }
+            .tooltip:hover .tooltiptext {
+                visibility: visible;
+            }
         </style>
         <div style="margin-bottom: 5px">
             <p class="is-size-5" style="font-weight: bold">

@@ -117,6 +117,9 @@ export class GroupElement extends LitElement {
 
     private determineShowGroupDetails(): TemplateResult {
         if(this.showGroupDetails) {
+            if(this.group.commands === undefined) {
+                this.group.commands = [];
+            }
             let commandsToShow: IArgsKeeperCommand[] = this.group.commands;
             if(this.commandFilter !== undefined) {
                 commandsToShow = this.group.commands.filter(x => x.name.startsWith(this.commandFilter));
