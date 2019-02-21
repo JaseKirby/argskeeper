@@ -1,6 +1,8 @@
+@import "~typeface-k2d/index.css";
 @import "~bulmaswatch/materia/variables";
 
-// insert variables here
+$bulmaswatch-import-font: false;
+$family-sans-serif: "K2D", sans-serif;
 
 @import "~bulma";
 @import "~bulmaswatch/materia/overrides"
