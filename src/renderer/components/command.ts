@@ -2,6 +2,7 @@ import { clipboard } from "electron";
 import { html, LitElement, property, TemplateResult } from "lit-element";
 import { IArgsKeeperCommand } from "../../models/argsKeeperCommand";
 import { CommandTemplateTransformer } from "../../transformers/commandTemplateTransformer";
+import "./arg";
 
 export class CommandElement extends LitElement {
     public static elName: string = "argsk-command";
@@ -24,6 +25,7 @@ export class CommandElement extends LitElement {
 
     constructor() {
         super();
+        this.handleArgChange = this.handleArgChange.bind(this);
     }
 
     // implement this method and return this to remove shadow dom and use global style
@@ -42,10 +44,7 @@ export class CommandElement extends LitElement {
         this.requestUpdate();
     }
 
-    private handleArgChange(e: KeyboardEvent): void {
-        const el: HTMLInputElement = e.target as HTMLInputElement;
-        const i: number = Number(el.name);
-        this.command.args[i].value = el.value;
+    private handleArgChange(): void {
         this.requestUpdate();
     }
 
@@ -104,20 +103,9 @@ export class CommandElement extends LitElement {
                 </div>
             </div>
 
-            ${this.command.args.map((arg, i) =>
+            ${this.command.args.map((arg) =>
                 html`
-                <div class="field has-addons">
-                    <div class="control">
-                        <a class="button is-small is-dark" disabled>${arg.name}</a>
-                    </div>
-                    <div class="control is-expanded">
-                        <input name=${i} class="input is-small"
-                            style="padding-left: 5px"
-                            placeholder=${arg.default}
-                            .value=${arg.value}
-                            @keyup=${this.handleArgChange}/>
-                    </div>
-                </div>
+                <argsk-arg .arg=${arg} .onArgChange=${this.handleArgChange}></argsk-arg>
                 `
             )}
         </div>
