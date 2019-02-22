@@ -13,7 +13,8 @@ let mainWindow: Electron.BrowserWindow;
 
 function createWindow(): void {
     mainWindow = new BrowserWindow({
-        darkTheme: true,
+        width: 1200,
+        height: 600,
         webPreferences:{
             nodeIntegration: true
         }
@@ -22,6 +23,7 @@ function createWindow(): void {
     mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
 
     if (process.env.NODE_ENV !== "production") {
+        // mainWindow.setMenu(null);
         mainWindow.webContents.openDevTools();
     }
 

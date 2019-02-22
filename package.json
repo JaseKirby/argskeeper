@@ -1,12 +1,12 @@
 {
-  "name": "eltswb",
+  "name": "argskeeper",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "clean": "rimraf dist/**",
     "build-main": "tsc",
-    "build-render": "webpack",
+    "build-render": "webpack --mode=production",
     "test": "mocha --require ts-node/register test/**/*.ts",
     "build": "npm run clean && npm run build-main && npm run build-render",
     "watch": "npm run clean && npm run build-main && concurrently \"webpack --watch\" \"npm run start\" ",
