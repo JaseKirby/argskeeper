@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain, Event } from "electron";
+import * as path from "path";
 import { IConfig } from "./config/config";
 import { ConfigBuilder } from "./config/configBuilder";
-import * as path from "path";
 import { ArgsKeeperYamlRepo } from "./repos/argsKeeperYamlRepo";
 import { IArgsKeeper } from "../models/argsKeeper";
 
@@ -22,7 +22,7 @@ function createWindow(): void {
 
     mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
 
-    if (process.env.NODE_ENV !== "production") {
+    if (config.env !== "production") {
         // mainWindow.setMenu(null);
         mainWindow.webContents.openDevTools();
     }

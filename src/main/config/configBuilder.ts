@@ -9,6 +9,7 @@ export class ConfigBuilder {
 
     addEnvironmentVariables(): ConfigBuilder {
         const c: Config = this.config;
+        c.env = process.env.NODE_ENV || "production";
         c.filePath = process.env.ARGSK_FILE_PATH || c.filePath;
         return this;
     }
